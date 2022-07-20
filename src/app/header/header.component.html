@@ -1,0 +1,31 @@
+<nav id="#" class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">FS Manager</a>
+        </div>
+        <div class="colapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li routerLinkActive="active" ><a href="#" routerLink="/dashboard">Dashboard</a></li>
+                <li routerLinkActive="active" ><a href="#" routerLink="/products">Products</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" *ngIf="!user; else signedIn">
+                <li class="dropdown" appDropdown>
+                    <a class="dropdown-toggle" href="#" role="button">User <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" routerLink="/user/sign-up">Sign-up</a></li>
+                        <li><a href="#" routerLink="/acount/login">Login</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" #signedIn>
+                <li class="dropdown" appDropdown>
+                    <a class="dropdown-toggle" href="#" role="button">User <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" routerLink="/user/:"{{ user.id }}>User Account</a></li>
+                        <li><a href="#" routerLink="/acount/logout">Log out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
