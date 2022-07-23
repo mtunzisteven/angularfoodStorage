@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsComponent implements OnInit {
 
+  dateCheck: any;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  date(){
+    
   }
 
 }

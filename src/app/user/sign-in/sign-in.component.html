@@ -1,0 +1,67 @@
+<div *ngIf="user==undefined;" class="col-xs-5 align-items-center">
+    <h2>Hello </h2>
+    <p>Sign up for an account so you can start managing your food storage.</p><hr>
+    <form class="form-row align-items-center" id="user-signin" (ngSubmit)="onSubmit(signInform)" #signInform="ngForm">
+    
+        <div class="row">
+            <div class="col-sm-12 form-group">
+            <label for="email">Email:</label>
+            <input
+                type="email"
+                id="email"
+                class="form-control"
+                name="email"
+                [ngModel]=""
+                size="120"
+                max="255"
+                #email="ngModel"
+                required
+                >
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-sm-12 form-group">
+            <label for="password">Password:</label>
+            <input
+                type="password"
+                id="password"
+                class="form-control"              
+                name="password"
+                [ngModel]=""
+                size="150"
+                ngModel
+                #password="ngModel"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                required
+                >
+            </div>
+        </div>
+        <div 
+            class="alert alert-danger"
+            *ngIf="!password.valid && password.touched"
+            >Please make sure your password has a minimum of 8 characters, has atleast 1 number with atleast 1 uppercase and atleast 1 lowercase.
+        </div>
+
+        <div 
+            class="alert alert-danger"
+            *ngIf="!password.valid || !email.valid"
+            >Email  and password input fields are required.
+        </div>
+        <div class="row">
+            <div class="col-xs-12 btn-toolbar">
+            <button 
+                class="btn btn-success" 
+                type="submit"
+                [disabled]="!signInform.valid" 
+                >Sign in</button>
+            <button class="btn btn-primary" type="button" (click)="onCancel()">Cancel</button>
+            </div>
+        </div>
+    
+    </form>
+ </div>
+
+ <div *ngIf="user" class="col-md-6">
+    <h2>Hello. You're not signed in.</h2>
+</div>

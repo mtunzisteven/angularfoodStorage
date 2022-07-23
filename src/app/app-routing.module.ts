@@ -1,22 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserEditComponent } from './user/user-edit/user-edit.component';
+import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import { UserComponent } from './user/user.component';
+import { SignInComponent } from './user/sign-in/sign-in.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProductListComponent } from './products/product-list/product-list.component';
+import { ProductEditComponent } from './products/product-edit/product-edit.component';
 
 // creating routes for the entire application
 const appRoutes: Routes = [
-  // {path:'', redirectTo: '/documents', pathMatch: 'full'}, // localhost:4200 will redirect to DocumentsComponent
-  // {path:'documents', component: DocumentsComponent, children: [
-  //   {path:'new', component: DocumentEditComponent}, // must be above :id route because Angular will confuse new for :id otherwise
-  //   {path:':id', component: DocumentDetailComponent},
-  //   {path:':id/edit', component: DocumentEditComponent}
-  // ]}, // localhost:4200/documents will open DocumentsComponent
-
-  // {path:'messages', component: MessageListComponent}, // localhost:4200/messages will open MessageListComponent
-  // {path:'contacts', component: ContactsComponent, children: [
-  //     {path:'new', component: ContactEditComponent}, // must be above :id route because Angular will confuse new for :id otherwise
-  //     {path:':id', component: ContactDetailComponent},
-  //     {path:':id/edit', component: ContactEditComponent}
-  // ]} // localhost:4200/messages will open MessageListComponent
-
+  {path:'', redirectTo: '/dashboard', pathMatch: 'full'},
+  {path:'dashboard', component: DashboardComponent, children: [
+    {path:'user', component: UserComponent},
+    {path:'user/new', component: UserEditComponent}, // must be above :id route because Angular will confuse new for :id otherwise
+    {path:'user/signin', component: SignInComponent},
+    {path:'user:id', component: UserDetailComponent},
+    {path:'user/:id/edit', component: UserEditComponent},
+    {path:'products', component: ProductListComponent},
+    {path:'product/new', component: ProductEditComponent}, // must be above :id route because Angular will confuse new for :id otherwise
+    {path:'product/:id/edit', component: ProductEditComponent}
+  ]} 
 ];
 
 @NgModule({

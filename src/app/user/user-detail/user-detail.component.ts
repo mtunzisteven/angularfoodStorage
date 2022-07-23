@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ProductService } from '../products/product.service';
-import { User } from './user.model';
-import { UserService } from './user.service';
+import { ProductService } from 'src/app/products/product.service';
+import { User } from '../user.model';
+import { UserService } from '../user.service';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  selector: 'app-user-detail',
+  templateUrl: './user-detail.component.html',
+  styleUrls: ['./user-detail.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserDetailComponent implements OnInit {
 
   user: User;
 
@@ -38,7 +37,6 @@ export class UserComponent implements OnInit {
   ngOnDestroy(){
     this.subcription.unsubscribe();
   }
-
 
 
 }
