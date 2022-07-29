@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../auth.service';
 import { ProductService } from '../products/product.service';
 import { User } from './user.model';
 import { UserService } from './user.service';
@@ -21,11 +22,13 @@ export class UserComponent implements OnInit {
   constructor(
     private userService: UserService,
     private productService: ProductService,
+    private authService: AuthService
+
     ) { }
 
   ngOnInit(): void {
 
-      this.subcription = this.userService.userChangedEvent.subscribe(
+      this.subcription = this.authService.userChangedEvent.subscribe(
         (user) =>{
           this.user = user;
 

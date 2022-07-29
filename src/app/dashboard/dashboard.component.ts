@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../auth.service';
 import { User } from '../user/user.model';
 import { UserService } from '../user/user.service';
 
@@ -21,12 +22,18 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private authService: AuthService,
     private router: Router
     ) { }
 
   ngOnInit(): void {
 
-    this.subscription = this.userService.userChangedEvent.subscribe(
+    this.user = this.authService.user;
+
+    console.log('dashed user: ');
+    console.log(this.user);
+
+    this.subscription = this.authService.userChangedEvent.subscribe(
       (user) =>{
         this.user = user;
 

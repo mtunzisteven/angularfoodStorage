@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth.service';
 import { User } from '../user.model';
 import { UserService } from '../user.service';
 
@@ -21,17 +22,18 @@ export class SignInComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
 
-    this.subscription = this.userService.userChangedEvent.subscribe(
+    this.subscription = this.authService.userChangedEvent.subscribe(
       (user) =>{
         this.user = user;
 
-        this.router.navigate(['../../','products'], {relativeTo:this.route});
+        this.router.navigate(['../../', 'products'], {relativeTo:this.route});
 
       }
     );

@@ -13,14 +13,16 @@ const appRoutes: Routes = [
   {path:'', redirectTo: '/dashboard', pathMatch: 'full'},
   {path:'dashboard', component: DashboardComponent, children: [
     {path:'user', component: UserComponent},
-    {path:'user/new', component: UserEditComponent}, // must be above :id route because Angular will confuse new for :id otherwise
-    {path:'user/signin', component: SignInComponent},
-    {path:'user:id', component: UserDetailComponent},
-    {path:'user/:id/edit', component: UserEditComponent},
-    {path:'products', component: ProductListComponent},
-    {path:'product/new', component: ProductEditComponent}, // must be above :id route because Angular will confuse new for :id otherwise
-    {path:'product/:id/edit', component: ProductEditComponent}
-  ]} 
+    {path:'user/:id/edit', component: UserEditComponent}
+  ]},
+  {path:'products', component: ProductListComponent, children: [
+      {path:'new', component: ProductEditComponent}, // must be above :id route because Angular will confuse new for :id otherwise
+      {path:':id/edit', component: ProductEditComponent}
+  ]},
+  {path:'auth', component: UserComponent, children: [
+    {path:'new', component: UserEditComponent}, 
+    {path:'login', component: SignInComponent},
+  ]}
 ];
 
 @NgModule({

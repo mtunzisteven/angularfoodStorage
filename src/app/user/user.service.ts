@@ -15,9 +15,6 @@ export class UserService {
   // define the emitter that will emit contact array changes
   // contactChangedEvent = new EventEmitter<Contact[]>();
 
-  // a better way to emit user changes
-  userChangedEvent = new Subject<User>();
-
   // the user that will be retrieved on login
   user: User;
 
@@ -45,10 +42,13 @@ export class UserService {
               'Authorization': 'Bearer '+authData.token
             });
 
-            this.getUser(authData.id, this.headers);
+            this.authService.getUser(authData.id, this.headers);
 
           }
         );
+
+      
+
   }
 
   signIn(email: string, password: string){ 
@@ -98,37 +98,6 @@ export class UserService {
       );
 
       return success;
-  }
-
-  // function to get the user
-  getUser(id, headers){
-
-    this.http
-      .get<User>(
-        this.url+id,
-        { headers: headers }
-      )
-      .pipe(map(userData =>{
-          userData._id = '';
-
-          return userData;
-        }
-      ))
-    .subscribe(
-      // success method
-      (userData: any) => {
-
-        this.userChangedEvent.next(userData);
-
-      },
-      // error method
-      (error: any) => {
-          console.log(error);
-      } 
-    );
-
-      return this.user;
-
   }
 
 }

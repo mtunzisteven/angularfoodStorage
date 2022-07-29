@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 import { User } from '../user/user.model'
 import { UserService } from '../user/user.service';
@@ -15,11 +16,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private authService: AuthService
+    ) { }
 
   ngOnInit(): void {
 
-    this.subscription = this.userService.userChangedEvent
+    this.subscription = this.authService.userChangedEvent
       .subscribe(
         (user) =>{
           this.user = user;
@@ -29,6 +33,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  onLogout(){
+    this.authService.logout();
   }
 
 }

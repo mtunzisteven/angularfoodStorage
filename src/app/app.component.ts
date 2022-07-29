@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AuthService } from './auth.service';
 import { User } from './user/user.model';
 import { UserService } from './user/user.service';
 
@@ -14,13 +15,16 @@ export class AppComponent implements OnInit, OnDestroy{
 
   user: User;
 
-  constructor(private userService: UserService){
+  constructor(
+    private userService: UserService,
+    private authService: AuthService
+    ){
     
   }
 
   ngOnInit(){
     
-    this.subcription = this.userService.userChangedEvent.subscribe(
+    this.subcription = this.authService.userChangedEvent.subscribe(
       (user) =>{
         this.user = user;
 

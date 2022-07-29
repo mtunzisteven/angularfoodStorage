@@ -1,3 +1,115 @@
-<div *ngIf="user==undefined;" class="col-md-6">
-    <h2>Hello. You're not signed in.</h2>
-</div>
+<div class="row">
+    <div class="col-md-4">
+        <div *ngIf="user==undefined" class="panel panel-default">
+            <div class="panel-heading">
+            <div class="row pad-left-right">
+                <h2>User Dashboard</h2>
+            </div>
+            </div>
+            <div class="panel-body">
+                <div class="center-panel">
+                    <!-- User Dashboard information for non-logged in users goes here -->
+                    <p>
+                        This is your user account dashboard. If you are not signed up, please clcik on the button 
+                        below to create an account. If you have an existing account, please simply click the  
+                        login button below.
+
+                    </p>
+                </div>
+                <div class="row">
+                <div class="col-xs-12">
+                    <div class="btn-group">
+                        <a 
+                            type="button"
+                            class="btn btn-primary "
+                            routerLink="auth/new"
+                        >Signup
+                        </a>
+
+                        <a 
+                            type="button"
+                            class="btn btn-primary "
+                            routerLink="auth/signin"
+                        >Login
+                        </a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="user" class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row pad-left-right">
+                    <h2>Your User Information</h2>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="center-panel">
+                    <!-- Dashboard information for non-logged in users goes here -->
+                    <p>
+                        The statistics below are based on your profile provided information and the products your
+                        that you added. Make sure you keep your food storage up to date. Food that will soon expire 
+                        may affect your health.
+                    </p>
+                    <p><strong>Summary</strong></p>
+                    <p> 
+                       You have 6 days worth of food left in your food storage. 
+                    </p>
+
+                    <div class="panel panel-default" style="margin: 15px 12px;">
+                        <div class="row" >
+                            <div 
+                                class="list-group-item col-md-4" 
+                                style="border: 1px solid #d3d3d3;"
+                                >
+                                <p 
+                                    class="media-heading"
+                                    style="margin-left: 5px;"
+                                    >
+                                    <strong>{{ month }} </strong> {{ month>1? 'item':'items' }} expire in 30 days
+                                </p>
+                            </div>
+                            <div 
+                            class="list-group-item col-md-4" 
+                            style="border: 1px solid #d3d3d3;"
+                            >
+                            <p 
+                                class="media-heading"
+                                style="margin-left: 5px;"
+                                >
+                                <strong>{{ threeMonths }} </strong> {{ threeMonths>1? 'item':'items' }} expire in 3 months.
+                            </p>
+                            </div>
+                            <div 
+                                class="list-group-item col-md-4" 
+                                style="border: 1px solid #d3d3d3;"
+                                >
+                                <p 
+                                    class="media-heading"
+                                    style="margin-left: 5px;"
+                                    >
+                                    <strong>{{ year }} </strong> {{ year>1? 'item':'items' }} expire in a year.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-xs-12">
+                    <div class="btn-group"><!-- When openToggle is true, a value of open is set on the class-->
+                        <button 
+                            type="button"
+                            class="btn btn-primary "
+                            (click)="onSelectProfile()"
+                        >Profile
+                        </button>
+                        <a class="btn btn-success pull-right" [routerLink]="['product','new']">Add Food Item</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div> 

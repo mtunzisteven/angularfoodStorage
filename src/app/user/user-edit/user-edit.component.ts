@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth.service';
 import { User } from '../user.model';
 import { UserService } from '../user.service';
 
@@ -23,6 +24,7 @@ export class UserEditComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
     ) { }
@@ -58,7 +60,7 @@ export class UserEditComponent implements OnInit {
           
       });
 
-      this.subcription = this.userService.userChangedEvent.subscribe(
+      this.subcription = this.authService.userChangedEvent.subscribe(
         (user) =>{
           this.user = user;
         }
