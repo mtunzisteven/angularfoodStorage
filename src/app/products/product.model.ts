@@ -4,9 +4,9 @@ export class Product{
     constructor (
         public id: string,
         public name: string,
-        public email: string,
-        public password: string,
-        public familySize: number,
+        public servings: number,
+        public entryDate: number,
+        public expiryDate: number,
         public _id?: string
     ) { }
 } 

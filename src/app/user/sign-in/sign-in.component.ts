@@ -25,7 +25,11 @@ export class SignInComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
-    ) { }
+    ) { 
+      // turn on auth so *ngIf auth works
+      // must be done here and not in the init fn
+      this.userService.auth = true;
+    }
 
   ngOnInit(): void {
 
@@ -33,7 +37,7 @@ export class SignInComponent implements OnInit {
       (user) =>{
         this.user = user;
 
-        this.router.navigate(['../../', 'products'], {relativeTo:this.route});
+        this.router.navigate(['../../', 'dashboard'], {relativeTo:this.route});
 
       }
     );
@@ -41,6 +45,9 @@ export class SignInComponent implements OnInit {
 
   ngOnDestroy(){
     this.subscription.unsubscribe();
+
+    // turn off auth so *ngIf auth works
+    this.userService.auth = false;
   }
 
   

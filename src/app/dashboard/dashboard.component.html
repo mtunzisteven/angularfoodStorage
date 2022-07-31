@@ -1,122 +1,111 @@
 
 <div class="row">
-    <div class="col-md-4">
-        <div *ngIf="user==undefined" class="panel panel-default">
-            <div class="panel-heading">
-            <div class="row pad-left-right">
-                <h2>The Food Storage App</h2>
-            </div>
-            </div>
-            <div class="panel-body">
-                <div class="center-panel">
-                    <!-- Dashboard information for non-logged in users goes here -->
-                    <p>
-                        This application helps you manage your food storage and make sure you 
-                        always stay on top of your preparedness.<br/><br/>
 
-                    </p>
-                    <p>
-                        <strong>How it works:</strong>
+    <div class="col-md-12" *ngIf="user==undefined">
 
-                        <br/>
-                        The first step is to sign up to an account, log in and you'll be ready to 
-                        load the number of people you manage the storage for, and the food items ion your storage.<br/><br/>
-                    </p>
-                </div>
-                <div class="row">
-                <div class="col-xs-12">
-                    <div class="btn-group">
-                        <a 
-                            type="button"
-                            class="btn btn-primary "
-                            routerLink="../auth/new"
-                        >Signup
-                        </a>
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        
+            <h1 class="display-4">The Food Storage App</h1>
 
-                        <a 
-                            type="button"
-                            class="btn btn-primary "
-                            routerLink="../auth/login"
-                        >Login
-                        </a>
-                    </div>
-                </div>
-                </div>
-            </div>
+            <p class="lead">This application helps you manage your food storage and make sure you 
+                always stay on top of your preparedness. The first step is to sign up to an account, log in and you'll be ready to 
+                load the number of people you manage the storage for, and the food items ion your storage.<br/><br/>
+            </p>
+    
         </div>
 
-        <div *ngIf="user" class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row pad-left-right">
-                    <h2>Your Food Storage Statistics:</h2>
-                </div>
+        <section class="jumbotron text-center">
+            <div class="container">
+                <p>
+                    <a 
+                        type="button"
+                        class="btn btn-primary my-2"
+                        routerLink="../user/new"
+                    >Signup
+                    </a>
+                    <a 
+                        type="button"
+                        class="btn btn-secondary my-2"
+                        routerLink="../user/login"
+                    >Login
+                    </a>
+                </p>
             </div>
-            <div class="panel-body">
-                <div class="center-panel">
-                    <!-- Dashboard information for non-logged in users goes here -->
-                    <p>
-                        The statistics below are based on your profile provided information and the products your
-                        that you added. Make sure you keep your food storage up to date. Food that will soon expire 
-                        may affect your health.
-                    </p>
-                    <p><strong>Summary</strong></p>
-                    <p> 
-                       You have 6 days worth of food left in your food storage. 
-                    </p>
+        </section>
 
-                    <div class="panel panel-default" style="margin: 15px 12px;">
-                        <div class="row" >
-                            <div 
-                                class="list-group-item col-md-4" 
-                                style="border: 1px solid #d3d3d3;"
-                                >
-                                <p 
-                                    class="media-heading"
-                                    style="margin-left: 5px;"
-                                    >
-                                    <strong>{{ month }} </strong> {{ month>1? 'item':'items' }} expire in 30 days
-                                </p>
-                            </div>
-                            <div 
-                            class="list-group-item col-md-4" 
-                            style="border: 1px solid #d3d3d3;"
-                            >
-                            <p 
-                                class="media-heading"
-                                style="margin-left: 5px;"
-                                >
-                                <strong>{{ threeMonths }} </strong> {{ threeMonths>1? 'item':'items' }} expire in 3 months.
-                            </p>
-                            </div>
-                            <div 
-                                class="list-group-item col-md-4" 
-                                style="border: 1px solid #d3d3d3;"
-                                >
-                                <p 
-                                    class="media-heading"
-                                    style="margin-left: 5px;"
-                                    >
-                                    <strong>{{ year }} </strong> {{ year>1? 'item':'items' }} expire in a year.
-                                </p>
-                            </div>
-                        </div>
+    </div>
+
+    <div class="col-md-12" *ngIf="user">
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        
+            <h1 class="display-4">Food Storage Summary:</h1>
+            <p class="lead">The statistics below are based on your profile provided information and the products your
+                that you added. Make sure you keep your food storage up to date. Food that will soon expire 
+                may affect your health.
+            </p>
+    
+            <p style="color:#E63946"> 
+                You have 6 days worth of food left in your food storage. 
+            </p>
+    
+        </div>
+      
+        <div class="container">
+    
+            <div class="card-deck mb-3 text-center">
+    
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">Expire in 30 days</h4>
                     </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">{{ month }}<small class="text-muted"> {{ month==1? 'item':'items' }}</small></h1>
+                    <!-- <ul class="list-unstyled mt-3 mb-4">
+                    <li>10 users included</li>
+                    <li>2 GB of storage</li>
+                    <li>Email support</li>
+                    <li>Help center access</li>
+                    </ul>-->
+                    <a type="button" class="btn btn-md btn-block btn-prime btn-outline">Manage</a> 
                 </div>
-                <div class="row">
-                <div class="col-xs-12">
-                    <div class="btn-group"><!-- When openToggle is true, a value of open is set on the class-->
-                        <button 
-                            type="button"
-                            class="btn btn-primary "
-                            (click)="onSelectProfile()"
-                        >Profile
-                        </button>
-                        <a class="btn btn-success pull-right" [routerLink]="['product','new']">Add Food Item</a>
+                </div>
+    
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">Expire in 3 months</h4>
                     </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">{{ threeMonths }}<small class="text-muted"> {{ threeMonths==1? 'item':'items' }}</small></h1>
+                    <!-- <ul class="list-unstyled mt-3 mb-4">
+                    <li>10 users included</li>
+                    <li>2 GB of storage</li>
+                    <li>Email support</li>
+                    <li>Help center access</li>
+                    </ul>-->
+                    <a type="button" class="btn btn-md btn-block btn-prime btn-outline">Manage</a> 
                 </div>
                 </div>
+    
+                <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Expire in a year</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">{{ year }}<small class="text-muted"> {{ year==1? 'item':'items' }}</small></h1>
+                    <!-- <ul class="list-unstyled mt-3 mb-4">
+                    <li>10 users included</li>
+                    <li>2 GB of storage</li>
+                    <li>Email support</li>
+                    <li>Help center access</li>
+                    </ul>-->
+                    <a type="button" class="btn btn-md btn-block btn-prime btn-outline">Manage</a> 
+                </div>
+                </div>
+    
             </div>
+            
         </div>
     </div>
-    <router-outlet></router-outlet>
+
 </div> 
+

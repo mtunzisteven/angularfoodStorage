@@ -17,7 +17,16 @@ export class ProductService {
   selectedproductEvent = new EventEmitter<Product>();
 
   // the product that will be retrieved on login
-  products: Product[];
+  products = [
+    new Product('1', 'beans', 4, 166699, 166699),
+    new Product('2', 'fish', 4, 166699, 166699),
+    new Product('3', 'corned meat', 5, 166699, 166699)
+  ];
+
+  // const dates_into_integers = dates_as_strings.map(product => new Date(product.expiryData).getTime()) || no errors
+  // const dates_into_integers = dates_as_strings.parse(product => Date.parse(product.expiryData)) || may have errors
+
+  // const date_into_strings = dates_as_strings.map(date => new Date(product.expiryData));
 
   productId: string;
 

@@ -10,13 +10,17 @@ import { UserComponent } from './user/user.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
-import { ProductItemComponent } from './products/product-list/product-item/product-item.component';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { HeaderComponent } from './header/header.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { LoggingInterceptorService } from './logging-interceptor.service';
+import { ExpiredGroupAComponent } from './products/expired-group-a/expired-group-a.component';
+import { ExpiredGroupBComponent } from './products/expired-group-b/expired-group-b.component';
+import { ExpiredGroupCComponent } from './products/expired-group-c/expired-group-c.component';
+import { RemovedProductsComponent } from './products/removed-products/removed-products.component';
+import { ExpiredProductsComponent } from './products/expired-products/expired-products.component';
 
 @NgModule({
   declarations: [
@@ -26,12 +30,16 @@ import { LoggingInterceptorService } from './logging-interceptor.service';
     UserEditComponent,
     ProductsComponent,
     ProductListComponent,
-    ProductItemComponent,
     ProductEditComponent,
     HeaderComponent,
     DropdownDirective,
     UserDetailComponent,
-    SignInComponent
+    SignInComponent,
+    ExpiredGroupAComponent,
+    ExpiredGroupBComponent,
+    ExpiredGroupCComponent,
+    RemovedProductsComponent,
+    ExpiredProductsComponent
   ],
   imports: [
     BrowserModule,

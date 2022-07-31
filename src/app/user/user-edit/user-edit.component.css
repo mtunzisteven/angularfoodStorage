@@ -2,6 +2,6 @@ input.ng-invalid {
     border: 1px solid red;
   }
 
-  div.form-container{
-    max-width: 250px;
-  }
+div.form-container{
+  max-width: 250px;
+}

@@ -15,6 +15,8 @@ export class UserComponent implements OnInit {
 
   user: User;
 
+  auth = false;
+
   dashboard = {};
 
   subcription: Subscription;
@@ -27,6 +29,10 @@ export class UserComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+
+      this.auth = this.userService.auth;
+
+      console.log(this.auth);
 
       this.subcription = this.authService.userChangedEvent.subscribe(
         (user) =>{

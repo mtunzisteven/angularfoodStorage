@@ -1,41 +1,38 @@
-<div class="row">
-    <div class="col-md-4">
-        <div *ngIf="user==undefined" class="panel panel-default">
-            <div class="panel-heading">
-            <div class="row pad-left-right">
-                <h2>User Dashboard</h2>
-            </div>
-            </div>
-            <div class="panel-body">
-                <div class="center-panel">
-                    <!-- User Dashboard information for non-logged in users goes here -->
-                    <p>
-                        This is your user account dashboard. If you are not signed up, please clcik on the button 
-                        below to create an account. If you have an existing account, please simply click the  
-                        login button below.
+<div class="container">
+    <div class="row">
 
-                    </p>
-                </div>
-                <div class="row">
-                <div class="col-xs-12">
-                    <div class="btn-group">
+        <div class="col-md-12" *ngIf="user==undefined && !auth">
+
+            <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+            
+                <h1 class="display-4">User Dashboard</h1>
+
+                <p class="lead">This is your user account dashboard. If you are not signed up, please clcik on the button 
+                    below to create an account. If you have an existing account, please simply click the  
+                    login button below.<br/><br/>
+                </p>
+        
+            </div>
+
+            <section class="jumbotron text-center">
+                <div class="container">
+                    <p>
                         <a 
                             type="button"
-                            class="btn btn-primary "
-                            routerLink="auth/new"
+                            class="btn btn-primary my-2"
+                            routerLink="../user/new"
                         >Signup
                         </a>
-
                         <a 
                             type="button"
-                            class="btn btn-primary "
-                            routerLink="auth/signin"
+                            class="btn btn-secondary my-2"
+                            routerLink="../user/login"
                         >Login
                         </a>
-                    </div>
+                    </p>
                 </div>
-                </div>
-            </div>
+            </section>
+
         </div>
 
         <div *ngIf="user" class="panel panel-default">
@@ -54,7 +51,7 @@
                     </p>
                     <p><strong>Summary</strong></p>
                     <p> 
-                       You have 6 days worth of food left in your food storage. 
+                        You have 6 days worth of food left in your food storage. 
                     </p>
 
                     <div class="panel panel-default" style="margin: 15px 12px;">
@@ -110,6 +107,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    <router-outlet></router-outlet>
-</div> 
+        
+    </div> 
+</div>
+<router-outlet></router-outlet>

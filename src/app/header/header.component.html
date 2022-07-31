@@ -1,4 +1,4 @@
-<nav id="#" class="navbar navbar-default main-colored">
+<!-- <nav id="#" class="navbar navbar-default main-colored">
     <div class="container-fluid">
         <div class="navbar-header">
             <a role="button" routerLink="/dashboard" class="navbar-brand" >FS Manager</a>
@@ -12,8 +12,8 @@
                 <li class="dropdown" appDropdown>
                     <a class="dropdown-toggle" aria-disabled="true" role="button">User <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li routerLinkActive="active"><a href="#" routerLink="/auth/new">Sign-up</a></li>
-                        <li routerLinkActive="active"><a href="#" routerLink="/auth/login">Login</a></li>
+                        <li routerLinkActive="active"><a href="#" routerLink="/user/new">Sign-up</a></li>
+                        <li routerLinkActive="active"><a href="#" routerLink="/user/login">Login</a></li>
                     </ul>
                 </li>
             </ul>
@@ -28,4 +28,13 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav> -->
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-prime border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal">FS Manager</h5>
+    <nav class="header-nav my-2 my-md-0 mr-md-3">
+        <a class="nav-text" href="#" routerLink="/dashboard">Dashboard</a>
+        <a *ngIf="user" class="nav-text" href="#" routerLink="/products/list">Products</a>
+    </nav>
+    <a class="btn btn-outline" href="#">Sign up</a>
+</div>

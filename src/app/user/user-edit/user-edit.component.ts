@@ -16,7 +16,7 @@ export class UserEditComponent implements OnInit {
   isEdit: boolean = true;
 
   // initial value to avert error name undefined
-  user = new User('', '', '', '', 0);
+  user = new User('', '', '', '', 1);
 
   id: string = '';
 
@@ -27,7 +27,10 @@ export class UserEditComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
-    ) { }
+    ) { 
+      // turn on auth so *ngIf auth works
+      this.userService.auth = true;
+    }
 
   ngOnInit(): void {
 
@@ -71,6 +74,9 @@ export class UserEditComponent implements OnInit {
 
   ngOnDestroy(){
     this.subcription.unsubscribe();
+
+    // turn off auth so *ngIf auth works
+    this.userService.auth = false;
   }
 
   onSubmit(form: FormGroup){

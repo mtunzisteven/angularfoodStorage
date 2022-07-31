@@ -20,6 +20,11 @@ export class UserService {
 
   userId: string;
 
+  auth: boolean;
+
+  emitAuthBoolean = new Subject<boolean>();
+
+
   // Maximum user id variable
   maxUserId: number = 0;
 
