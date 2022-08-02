@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
@@ -10,6 +11,7 @@ import { ProductService } from '../product.service';
 })
 export class ProductListComponent implements OnInit {
 
+  subscription: Subscription;
 
   products: Product[];
 
@@ -17,7 +19,15 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.products = this.productService.products;
+    this.products = this.productService.getProducts();
+
+    this.subscription = this.productService.productListChangedEvent
+      .subscribe(
+        (products: Product[]) =>{
+          this.products = products;
+        }
+      );
+
   }
 
 }

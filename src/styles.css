@@ -80,6 +80,7 @@ div.pad-left-right{
 
 .btn-outline{
     color: #457B9D;
+    border-color: #457B9D ;
     background-color: #ffffff;
 }
 
@@ -89,30 +90,20 @@ div.pad-left-right{
     color: #F1FAEE;
 }
 
-.sidemenu, .sidemenu a{
-    background-color: #A8DADC;
-    border-color: #A8DADC ;
-    color: #6c757d;
-}
-
-.sidemenu a:hover{
-    background-color: #457B9D;
-    border-color: #457B9D ;
-    color: #A8DADC ;
-}
-
 input.ng-invalid {
     border: 1px solid red;
   }
    
-.form-signin,.form-signup{
+.form-signin,.form-signup, .form-new-product{
   width: 100%;
   max-width: 330px;
   padding: 15px;
   margin: 50px auto auto auto;
 }
 
-.form-signin .form-control, .form-signup .form-control{
+.form-signin .form-control, 
+.form-signup .form-control, 
+.form-new-product .form-control{
   position: relative;
   box-sizing: border-box;
   height: auto;

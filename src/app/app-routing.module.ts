@@ -20,9 +20,9 @@ const appRoutes: Routes = [
   {path:'dashboard', component: DashboardComponent},
   {path:'products', component: ProductsComponent, children: [
     {path:'list', component: ProductListComponent},
-    {path:'exp-a', component: ExpiredGroupAComponent},
-    {path:'exp-b', component: ExpiredGroupBComponent},
-    {path:'exp-c', component: ExpiredGroupCComponent},
+    {path:'expires-in-1-month', component: ExpiredGroupAComponent},
+    {path:'expires-in-3-months', component: ExpiredGroupBComponent},
+    {path:'expires-in-1-year', component: ExpiredGroupCComponent},
     {path:'expired', component: ExpiredProductsComponent},
     {path:'removed', component: RemovedProductsComponent},
     {path:'new', component: ProductEditComponent}, // must be above :id route because Angular will confuse new for :id otherwise

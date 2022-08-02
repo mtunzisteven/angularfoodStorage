@@ -17,11 +17,7 @@ export class ProductService {
   selectedproductEvent = new EventEmitter<Product>();
 
   // the product that will be retrieved on login
-  products = [
-    new Product('1', 'beans', 4, 166699, 166699),
-    new Product('2', 'fish', 4, 166699, 166699),
-    new Product('3', 'corned meat', 5, 166699, 166699)
-  ];
+  products = [];
 
   // const dates_into_integers = dates_as_strings.map(product => new Date(product.expiryData).getTime()) || no errors
   // const dates_into_integers = dates_as_strings.parse(product => Date.parse(product.expiryData)) || may have errors
@@ -65,6 +61,13 @@ export class ProductService {
         )
        // Use pipe below to get correct products
        .pipe(map(fetchedProducts =>{
+
+          fetchedProducts['products'].map(product => {
+            product['expiryDate'] = new Date(product['expiryDate']).toISOString().replace('-', '/').split('T')[0].replace('-', '/');
+            product['addedDate'] = new Date(product['addedDate']).toISOString().replace('-', '/').split('T')[0].replace('-', '/');
+          });
+
+
           return fetchedProducts['products'];
         })) 
       .subscribe(
@@ -87,7 +90,7 @@ export class ProductService {
   }
 
     // fn to add a product into the products array
-  addproduct(newProduct: Product) {
+  addProduct(newProduct: Product) {
 
     if (!newProduct) {
       console.log('No new contact detected!');
@@ -96,6 +99,9 @@ export class ProductService {
 
     // make sure id of the new product is empty
     newProduct.id = '';
+
+    console.log('headers');
+    console.log(this.headers);
 
     // add to database
     this.http.post<{ message: string, product: Product }>(this.url,

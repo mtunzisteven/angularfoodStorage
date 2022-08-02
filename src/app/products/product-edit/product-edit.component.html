@@ -1,1 +1,100 @@
-<p>product-edit works!</p>
+<div class="panel panel-default">
+    <div class="panel-body ">
+  
+      <form class="form-new-product"  id="product-edit" (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+        <h1 class="h3 mb-3 font-weight-normal align-items-center text-center">Enter a new product</h1>
+
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              name="name"
+              [ngModel]="product.name"
+              ngModel
+              #name="ngModel"
+              size="120"
+              max="120"
+              placeholder="Enter name"
+              required
+              >
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <input
+              type="text"
+              id="amount"
+              class="form-control"
+              name="amount"
+              [ngModel]="product.amount"
+              size="120"
+              max="255"
+              #amount="ngModel"
+              placeholder="Enter amount in grams, Kilograms, etc"
+              required
+              >
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <label for="servings">Enter Servings</label>
+            <input
+              type="number"
+              id="servings"
+              class="form-control"              
+              name="servings"
+              [ngModel]="product.servings"
+              size="150"
+              max="255"
+              min="1"
+              ngModel
+              #servings="ngModel"
+              required
+              >
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 form-group">
+              <input
+                type="date"
+                id="expiryDate"
+                class="form-control"              
+                name="expiryDate"
+                [ngModel]="product.expiryDate"
+                size="150"
+                max="255"
+                ngModel
+                #expiryDate="ngModel"
+                required
+                >
+            </div>
+        </div>
+
+        <div 
+            class="alert alert-danger"
+            *ngIf="!name.valid || !servings.valid || !amount.valid || !expiryDate.valid"
+            >The Product name, servings, amount and expiry date are required fields.</div>
+        <div class="col-xs-12 btn-toolbar">
+            <button 
+                class="btn btn-lg btn-prime btn-block" 
+                type="submit"
+                [disabled]="!f.valid" 
+                >Save</button>
+            <button 
+                class="btn btn-lg btn-dnger btn-block" 
+                type="button" 
+                (click)="onCancel()">Cancel</button>
+        </div>
+  
+      </form>
+  
+    </div>
+  </div>
+  
+  
