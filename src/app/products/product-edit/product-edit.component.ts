@@ -87,7 +87,7 @@ export class ProductEditComponent implements OnInit {
     // route back to the '/products' URL 
 
     const productEditForm = form.value;
-    let addedData = Date.now();
+    let addedDate = Date.now();
     let expiryDate =  Date.parse(productEditForm.expiryDate);
 
     let newProduct = new Product(
@@ -95,7 +95,7 @@ export class ProductEditComponent implements OnInit {
       productEditForm.name,
       productEditForm.amount,
       productEditForm.servings,
-      addedData,
+      addedDate,
       expiryDate
       );
 

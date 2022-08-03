@@ -1,0 +1,11 @@
+.bi{
+    margin-left: 20px;
+}
+
+.bi:hover{
+    color: #A8DADC;
+}
+
+main{
+    margin: 16px 0 0 16px;
+}

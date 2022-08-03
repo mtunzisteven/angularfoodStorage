@@ -6,7 +6,7 @@ export class Product{
         public name: string,
         public amount: string,
         public servings: number,
-        public addedData: number,
+        public addedDate: number,
         public expiryDate: number,
         public _id?: string
     ) { }

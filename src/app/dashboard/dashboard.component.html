@@ -44,8 +44,8 @@
                 may affect your health.
             </p>
     
-            <p style="color:#E63946"> 
-                You have 6 days worth of food left in your food storage. 
+            <p [ngStyle]="{color:expiryNumbers.servingsLeft <= 30 ? '#E63946': 'green'}"> 
+                You have {{ expiryNumbers.servingsLeft }} days worth of food left in your food storage. 
             </p>
     
         </div>
@@ -56,16 +56,10 @@
     
                 <div class="card mb-4 shadow-sm">
                     <div class="card-header">
-                        <h4 class="my-0 font-weight-normal">Expire in 30 days</h4>
+                        <h4 class="my-0 font-weight-normal">Expire within 30 days</h4>
                     </div>
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">{{ month }}<small class="text-muted"> {{ month==1? 'item':'items' }}</small></h1>
-                    <!-- <ul class="list-unstyled mt-3 mb-4">
-                    <li>10 users included</li>
-                    <li>2 GB of storage</li>
-                    <li>Email support</li>
-                    <li>Help center access</li>
-                    </ul>-->
+                    <h1 class="card-title pricing-card-title">{{ expiryNumbers.month }}<small class="text-muted"> {{ expiryNumbers.month==1? 'item':'items' }}</small></h1>
                     <a 
                         type="button" 
                         class="btn btn-md btn-block btn-prime btn-outline"
@@ -76,16 +70,10 @@
     
                 <div class="card mb-4 shadow-sm">
                     <div class="card-header">
-                        <h4 class="my-0 font-weight-normal">Expire in 3 months</h4>
+                        <h4 class="my-0 font-weight-normal">Expire within 3 months</h4>
                     </div>
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">{{ threeMonths }}<small class="text-muted"> {{ threeMonths==1? 'item':'items' }}</small></h1>
-                    <!-- <ul class="list-unstyled mt-3 mb-4">
-                    <li>10 users included</li>
-                    <li>2 GB of storage</li>
-                    <li>Email support</li>
-                    <li>Help center access</li>
-                    </ul>-->
+                    <h1 class="card-title pricing-card-title">{{ expiryNumbers.threeMonths }}<small class="text-muted"> {{ expiryNumbers.threeMonths==1? 'item':'items' }}</small></h1>
                     <a 
                         type="button" 
                         class="btn btn-md btn-block btn-prime btn-outline"
@@ -96,16 +84,10 @@
     
                 <div class="card mb-4 shadow-sm">
                 <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">Expire in a year</h4>
+                    <h4 class="my-0 font-weight-normal">Expire within a year</h4>
                 </div>
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">{{ year }}<small class="text-muted"> {{ year==1? 'item':'items' }}</small></h1>
-                    <!-- <ul class="list-unstyled mt-3 mb-4">
-                    <li>10 users included</li>
-                    <li>2 GB of storage</li>
-                    <li>Email support</li>
-                    <li>Help center access</li>
-                    </ul>-->
+                    <h1 class="card-title pricing-card-title">{{ expiryNumbers.year }}<small class="text-muted"> {{ expiryNumbers.year==1? 'item':'items' }}</small></h1>
                     <a 
                         type="button" 
                         class="btn btn-md btn-block btn-prime btn-outline"

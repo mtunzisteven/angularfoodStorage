@@ -100,9 +100,6 @@ export class ProductService {
     // make sure id of the new product is empty
     newProduct.id = '';
 
-    console.log('headers');
-    console.log(this.headers);
-
     // add to database
     this.http.post<{ message: string, product: Product }>(this.url,
       newProduct,
@@ -202,6 +199,31 @@ export class ProductService {
     });
 
     this.productListChangedEvent.next(this.products.slice());
+  }
+
+  // display products by expiration status
+  showProductsByExpirationStatus(products: Product[], max: number){
+
+    return products.filter(product => {
+
+      let difference = Date.parse(product.expiryDate.toString())-Date.now();
+
+      let days = (Math.ceil(difference/ (1000 * 3600 * 24)));
+
+      switch(max){
+        case 0: // expired
+          return days <= 0;
+        case 31: // expire within 1 month
+          return days > 0 && days <= 30;
+        case 92: // expire within 3 months
+          return days > 30 && days <= 92;
+        case 356: //expire within year
+          return days > 92 && days <= 365; 
+        default:
+          return days > 0
+      }
+
+    });
   }
 }
 
