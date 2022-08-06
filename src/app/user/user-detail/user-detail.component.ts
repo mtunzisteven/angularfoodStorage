@@ -14,7 +14,7 @@ export class UserDetailComponent implements OnInit {
 
   user: User;
 
-  dashboard = {};
+  home = {};
 
   subcription: Subscription;
 
@@ -30,7 +30,7 @@ export class UserDetailComponent implements OnInit {
         (user) =>{
           this.user = user;
 
-          // fetch products for this user and add them to the dashboard object for viewing 
+          // fetch products for this user and add them to the home object for viewing 
 
         }
       );

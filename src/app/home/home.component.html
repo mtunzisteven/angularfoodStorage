@@ -1,0 +1,93 @@
+
+<div class="row">
+
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron" *ngIf="user==undefined">
+        <h1>The Food Storage App</h1>
+        <p>This application helps you manage your food storage and make sure you 
+            always stay on top of your preparedness. The first step is to sign up to an account, log in and you'll be ready to 
+            load the number of people you manage the storage for, and the food items ion your storage.</p>
+        <p>
+            <a 
+                role="button"
+                class="btn btn-primary btn-lg"
+                routerLink="../user/new"
+            >Signup
+            </a>
+            <a 
+                role="button"
+                class="btn btn-outline btn-lg"
+                routerLink="../user/login"
+            >Login
+            </a>
+        </p>
+    </div>
+
+    <div class="jumbotron home-content" *ngIf="user">
+
+        <h1>Food Storage Summary:</h1>
+        <p>The statistics below are based on your profile provided information and the products your
+            that you added. Make sure you keep your food storage up to date. Food that will soon expire 
+            may affect your health.</p>
+
+        <p [ngStyle]="{color:expiryNumbers.servingsLeft <= 30 ? '#E63946': 'green'}"> 
+            You have {{ expiryNumbers.servingsLeft }} days worth of food left in your food storage. 
+        </p>
+          
+        <div class="row home-content-boxes">
+    
+            <div class="col-md-4">
+                <div class="panel panel-prime">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Expire within 30 days</h3>
+                    </div>
+                    
+                    <div class="panel-body">
+                        {{ expiryNumbers.month }} {{ expiryNumbers.month==1? 'item':'items' }} 
+                    </div>
+                    
+                    <a 
+                    type="button" 
+                    class="btn btn-lg btn-prime"
+                    [routerLink]="['/products/expires-in-1-month']"
+                    >Manage</a> 
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-prime">
+                    <div class="panel-heading"><h3 class="panel-title">Expire within 3 months</h3></div>
+                    
+                    <div class="panel-body">
+                        {{ expiryNumbers.threeMonths }} {{ expiryNumbers.threeMonths==1? 'item':'items' }}
+                    </div>
+                    
+                    <a 
+                    type="button" 
+                    class="btn btn-lg btn-prime"
+                    [routerLink]="['/products/expires-in-3-months']"
+                    >Manage</a> 
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-prime">
+                    <div class="panel-heading"><h3 class="panel-title">Expire within a year</h3></div>
+                    
+                    <div class="panel-body">
+                        {{ expiryNumbers.year }} {{ expiryNumbers.year==1? 'item':'items' }}
+                    </div>
+                    
+                    <a 
+                    type="button" 
+                    class="btn btn-lg btn-prime"
+                    [routerLink]="['/products/expires-in-1-year']"
+                    >Manage</a> 
+                </div>
+            </div>
+                
+        </div>
+    </div>
+
+</div> 
+

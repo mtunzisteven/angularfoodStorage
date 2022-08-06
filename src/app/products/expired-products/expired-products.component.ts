@@ -38,4 +38,9 @@ export class ExpiredProductsComponent implements OnInit, OnDestroy {
 
   }
 
+  onDeleteProduct(product: Product){
+
+    this.productService.deleteProduct(product);
+  }
+
 }

@@ -1,44 +1,31 @@
-<main role="main" class="col-sm-12 w-100"> 
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-1">
-    <h1 class="h2">Food storage will last {{ servingsLeft }} days</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-      <!-- <div class="btn-group mr-2">
-        <button type="button" class="btn btn-sm btn-outline ">Share</button>
-        <button type="button" class="btn btn-sm btn-outline ">Export</button>
-      </div> -->
-      <a 
-          type="button"
-          class="btn btn-primary my-2"
-          routerLink="../new"
-      >Add New Product
-      </a>
-    </div>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <h1 class="sub-header pull-left" >  Food storage will last {{ servingsLeft }} days</h1>
   </div>
-    <div class="table-responsive">
-      <table class="table table-striped table-sm">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Servings</th>
-            <th>Entry Date</th>
-            <th>Expiry Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr
-                *ngFor=" let product of products; let i = index"
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Servings</th>
+          <th>Entry Date</th>
+          <th>Expiry Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr
+              *ngFor=" let product of products; let i = index"
 
-            >
-                <td>{{i+1}}</td>
-                <td>{{product.name}}</td>
-                <td>{{product.amount}}</td>
-                <td>{{product.servings}}</td>
-                <td>{{product.addedDate}}</td>
-                <td>{{product.expiryDate}}</td>
-                <td>
+          >
+              <td>{{i+1}}</td>
+              <td>{{product.name}}</td>
+              <td>{{product.amount}}</td>
+              <td>{{product.servings}}</td>
+              <td>{{product.addedDate}}</td>
+              <td>{{product.expiryDate}}</td>
+              <td>
                     <i 
                         class="bi bi-pencil-fill"
                         style="cursor:pointer"
@@ -46,9 +33,13 @@
                         [routerLinkActive]="'active'"
                         style="border-bottom: 1px solid #d3d3d3;"
                     ></i>
-                </td>
-            </tr>
-        </tbody>
-      </table>
-    </div>
-  </main>
+                    <i 
+                        class="bi bi-x-square-fill"
+                        (click)="onDeleteProduct(product)"
+                        style="border-bottom: 1px solid #d3d3d3; cursor:pointer"
+                    ></i>  
+              </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>

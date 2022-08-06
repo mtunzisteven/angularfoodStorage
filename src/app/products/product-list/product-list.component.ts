@@ -66,4 +66,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   }
 
+  onDeleteProduct(product: Product){
+
+    this.productService.deleteProduct(product);
+    
+  }
+
 }

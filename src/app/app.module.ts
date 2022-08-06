@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { ProductsComponent } from './products/products.component';
@@ -25,7 +25,7 @@ import { ExpiredProductsComponent } from './products/expired-products/expired-pr
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
+    HomeComponent,
     UserComponent,
     UserEditComponent,
     ProductsComponent,
@@ -47,6 +47,9 @@ import { ExpiredProductsComponent } from './products/expired-products/expired-pr
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
+  ],
+  exports:[
+    DropdownDirective
   ],
   providers: [ 
     { // provide the LoggingInterceptorService in a special way as follows | order important: auth first

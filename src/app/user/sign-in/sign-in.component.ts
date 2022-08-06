@@ -37,7 +37,7 @@ export class SignInComponent implements OnInit {
       (user) =>{
         this.user = user;
 
-        this.router.navigate(['../../', 'dashboard'], {relativeTo:this.route});
+        this.router.navigate(['../../', 'home'], {relativeTo:this.route});
 
       }
     );

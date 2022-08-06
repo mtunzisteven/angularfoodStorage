@@ -4,7 +4,7 @@ import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { UserComponent } from './user/user.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { ProductsComponent } from './products/products.component';
@@ -16,8 +16,8 @@ import { ExpiredGroupCComponent } from './products/expired-group-c/expired-group
 
 // creating routes for the entire application
 const appRoutes: Routes = [
-  {path:'', redirectTo: '/dashboard', pathMatch: 'full'}, 
-  {path:'dashboard', component: DashboardComponent},
+  {path:'', redirectTo: '/home', pathMatch: 'full'}, 
+  {path:'home', component: HomeComponent},
   {path:'products', component: ProductsComponent, children: [
     {path:'list', component: ProductListComponent},
     {path:'expires-in-1-month', component: ExpiredGroupAComponent},

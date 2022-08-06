@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy{
       (user) =>{
         this.user = user;
 
-        // fetch products for this user and add them to the dashboard object for viewing 
+        // fetch products for this user and add them to the home object for viewing 
 
       }
     );

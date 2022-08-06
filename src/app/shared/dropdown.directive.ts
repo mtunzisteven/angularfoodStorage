@@ -5,7 +5,10 @@ import { Directive, HostBinding, HostListener } from '@angular/core';
 })
 export class DropdownDirective {
     
-    constructor(){}
+    constructor(){
+      console.log('dropping down');
+
+    }
 
     // This host binding decorative will add a class name of 'open'
     // to the element we bind to whenever openToggle is true. 

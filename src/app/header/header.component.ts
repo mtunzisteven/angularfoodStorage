@@ -13,7 +13,6 @@ import { UserService } from '../user/user.service';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   user: User;
-
   subscription: Subscription;
 
   constructor(

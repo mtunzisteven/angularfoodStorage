@@ -52,4 +52,9 @@ export class ExpiredGroupCComponent implements OnInit , OnDestroy {
     });
   }
 
+  onDeleteProduct(product: Product){
+
+    this.productService.deleteProduct(product);
+  }
+
 }

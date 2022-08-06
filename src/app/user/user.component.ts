@@ -17,7 +17,7 @@ export class UserComponent implements OnInit {
 
   auth = false;
 
-  dashboard = {};
+  home = {};
 
   subcription: Subscription;
 
@@ -38,7 +38,7 @@ export class UserComponent implements OnInit {
         (user) =>{
           this.user = user;
 
-          // fetch products for this user and add them to the dashboard object for viewing 
+          // fetch products for this user and add them to the home object for viewing 
 
         }
       );

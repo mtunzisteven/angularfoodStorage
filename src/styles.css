@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap-icons/font/bootstrap-icons.css";
+@import url('https://fonts.googleapis.com/css2?family=Gentium+Book+Basic:wght@700&family=Quicksand:wght@400&display=swap');
 
 /* Colors */
 /* Primary: #457B9D */
@@ -16,24 +17,31 @@ html {
 
 body{
     background-color: #F1FAEE;
+    font-family: 'Quicksand', sans-serif;
 }
-  @media (min-width: 768px) {
-    html {
-      font-size: 16px;
-    }
+
+h1, h2, .panel-body{
+  font-family: 'Gentium Book Basic', serif;
+  color: #2e5d7a !important;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
   }
+}
   
-  .container {
-    max-width: 960px;
-  }
-  
-  .pricing-header {
-    max-width: 700px;
-  }
-  
-  .card-deck .card {
-    min-width: 220px;
-  }
+.container {
+  max-width: 960px;
+}
+
+.pricing-header {
+  max-width: 700px;
+}
+
+.card-deck .card {
+  min-width: 220px;
+}
 
 div.pad-left-right{
     margin-left: 2px;
@@ -41,11 +49,44 @@ div.pad-left-right{
 
 }
 
-.bg-prime, .header-nav a{
+.header-nav, 
+.navbar-default .navbar-brand, 
+.navbar-default .navbar-nav>li>a,
+.header-nav a{
     background-color: #457B9D;
     color: #F1FAEE;
 }
 
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-nav>.open>a:hover,
+.navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-nav>.open>a, 
+.navbar-default .navbar-nav>.open>a:focus{
+  background-color: #2e5d7a;
+  color: #ffffff;
+}
+
+.navbar-default .navbar-nav>.active>a, 
+.navbar-default .navbar-nav>.active>a:focus, 
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-nav .dropdown-menu li a:hover
+{
+  background-color: #2e5d7a;
+  border-color: #2e5d7a ;
+  color: #F1FAEE;
+}
+
+.dropdown-menu>.active>a, 
+.dropdown-menu>.active>a:focus, 
+.dropdown-menu>.active>a:hover,
+.navbar-nav .dropdown-menu,
+.navbar-nav .dropdown-menu li,
+.navbar-nav .dropdown-menu li a
+{
+  background-color: #F1FAEE;
+  border-color: #F1FAEE ;
+  color: #2e5d7a;
+}
 .btn{
     margin: 5px;
 }
@@ -66,6 +107,24 @@ div.pad-left-right{
     color: #F1FAEE;
 }
 
+.btn-primary.active, .btn-prime.active{
+  background-color: #2e5d7a;
+  border-color: #F1FAEE ;
+  color: #F1FAEE;
+}
+
+.btn-secondary{
+  background-color: #E63946;
+  border-color: #E63946 ;
+  color: #F1FAEE;
+}
+
+.btn-secondery:hover{
+  background-color: #F1FAEE;
+  border-color: #bd2d39 ;
+  color: #bd2d39;
+}
+
 .btn-danger, .btn-dnger{
     background-color: #E63946;
     border-color: #E63946 ;
@@ -79,9 +138,26 @@ div.pad-left-right{
 }
 
 .btn-outline{
-    color: #457B9D;
-    border-color: #457B9D ;
-    background-color: #ffffff;
+    color: #F1FAEE;
+    border-color: #7c7c7c ;
+    background-color: #7c7c7c;
+}
+
+.btn-outline:hover{
+  color: #F1FAEE;
+  border-color: #4e4e4e ;
+  background-color: #4e4e4e;
+}
+
+.dropdown-items{
+  position: absolute;
+  z-index:1001;
+  top: 56px;
+  right: 30px;
+  border-color: #457B9D ;
+  border-radius: 5px;
+  box-shadow: 1px 2px 8px #457B9D;
+  background-color: #ffffff;
 }
 
 .card-header{
@@ -90,10 +166,57 @@ div.pad-left-right{
     color: #F1FAEE;
 }
 
+.bi{
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.bi.bi-pencil-fill:hover{
+  color: #457B9D;
+}
+
+.bi.bi-x-square-fill:hover{
+  color:#E63946;
+}
+
+main{
+  margin: 16px 0 0 16px;
+}
+
 input.ng-invalid {
     border: 1px solid red;
-  }
-   
+}
+
+.home-content{
+  text-align: center;
+  padding-top: 50px;
+}
+
+.panel-prime{
+  border: none;
+  border-radius: 5px 5px 0 0;
+  color: #F1FAEE;
+  padding-bottom: 15px;
+}
+
+.panel-heading, .panel-title{
+  background-color: #E63946;
+  border-radius: 5px 5px 0 0;
+  color: #F1FAEE;
+
+}
+
+.panel-body{
+  color:#4e4e4e;
+  font-size: 30px;
+}
+
+.home-content-boxes{
+  max-width: 100%;
+  padding: 15px;
+  margin: 0 auto;
+}
+
 .form-signin,.form-signup, .form-new-product{
   width: 100%;
   max-width: 330px;

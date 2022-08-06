@@ -39,4 +39,9 @@ export class ExpiredGroupAComponent implements OnInit, OnDestroy {
 
   }
 
+  onDeleteProduct(product: Product){
+
+    this.productService.deleteProduct(product);
+  }
+
 }
