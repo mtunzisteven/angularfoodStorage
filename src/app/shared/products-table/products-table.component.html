@@ -1,0 +1,45 @@
+<div class="table-responsive">
+    <table class="table table-striped" *ngIf="!isLoading">
+      <thead>
+        <tr style="font-weight: 900;">
+          <th>#</th>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Servings</th>
+          <th>Expiry Date</th>
+          <th>Days Left</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr
+              *ngFor=" let product of products; let i = index"
+              style="font-weight: 600;"
+              [ngStyle]="{color:daysLeft[i] <= 365 ? '#E63946': 'green'}"
+          >
+              <td>{{i+1}}</td>
+              <td>{{product.name}}</td>
+              <td>{{product.amount}}</td>
+              <td>{{product.servings}}</td>
+              <td>{{product.expiryDate}}</td>
+              <td>{{ daysLeft[i] }}
+              </td>
+              <td>
+                    <i 
+                        class="bi bi-pencil-fill"
+                        style="cursor:pointer"
+                        [routerLink]="['/products', product.id, 'edit']"
+                        [routerLinkActive]="'active'"
+                        style="border-bottom: 1px solid #d3d3d3;"
+                    ></i>
+                    <i 
+                        class="bi bi-x-square-fill"
+                        (click)="onDeleteProduct(product)"
+                        style="border-bottom: 1px solid #d3d3d3; cursor:pointer"
+                    ></i>  
+              </td>
+          </tr>
+      </tbody>
+    </table>
+    <app-loading-spinner  *ngIf="isLoading"></app-loading-spinner>
+</div>

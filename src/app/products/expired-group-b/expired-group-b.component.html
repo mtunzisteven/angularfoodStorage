@@ -2,45 +2,6 @@
     <div class="btn-toolbar mb-2 mb-md-0">
         <h1 class="sub-header pull-left" >These products expire in less than 3 months</h1>
     </div>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Amount</th>
-              <th>Servings</th>
-              <th>Entry Date</th>
-              <th>Expiry Date</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-              <tr
-                  *ngFor=" let product of products; let i = index"
-    
-              >
-                  <td>{{i+1}}</td>
-                  <td>{{product.name}}</td>
-                  <td>{{product.amount}}</td>
-                  <td>{{product.servings}}</td>
-                  <td>{{product.addedDate}}</td>
-                  <td>{{product.expiryDate}}</td>
-                  <td>
-                        <i 
-                            class="bi bi-pencil-fill"
-                            style="cursor:pointer"
-                            [routerLink]="['/products', product.id, 'edit']"
-                            [routerLinkActive]="'active'"
-                            style="border-bottom: 1px solid #d3d3d3;"
-                        ></i>
-                        <i 
-                            class="bi bi-x-square-fill"
-                            (click)="onDeleteProduct(product)"
-                            style="border-bottom: 1px solid #d3d3d3; cursor:pointer"
-                        ></i>  
-                  </td>
-              </tr>
-          </tbody>
-        </table>
-      </div>
+    <app-products-table
+      [productListNumber]="93"
+    ></app-products-table>

@@ -22,6 +22,7 @@ import { RemovedProductsComponent } from './products/removed-products/removed-pr
 import { ExpiredProductsComponent } from './products/expired-products/expired-products.component';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinners/loading-spinner.component';
+import { ProductsTableComponent } from './shared/products-table/products-table.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { LoadingSpinnerComponent } from './shared/loading-spinners/loading-spinn
     RemovedProductsComponent,
     ExpiredProductsComponent,
     AuthComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    ProductsTableComponent
   ],
   imports: [
     BrowserModule,

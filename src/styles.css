@@ -20,6 +20,10 @@ body{
     font-family: 'Quicksand', sans-serif;
 }
 
+div.spinner{
+  text-align: center;
+}
+
 h1, h2, .panel-body{
   font-family: 'Gentium Book Basic', serif;
   color: #2e5d7a !important;
