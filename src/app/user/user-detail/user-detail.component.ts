@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { ProductService } from 'src/app/products/product.service';
-import { User } from '../user.model';
+import { User } from '../../auth/user.model';
 import { UserService } from '../user.service';
 
 @Component({
@@ -20,8 +20,7 @@ export class UserDetailComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private authService: AuthService,
-    private productService: ProductService,
+    private authService: AuthService
     ) { }
 
   ngOnInit(): void {

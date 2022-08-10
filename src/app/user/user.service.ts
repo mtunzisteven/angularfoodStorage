@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable} from '@angular/core';
 import { map, Subject } from 'rxjs';
 
-import { AuthService } from '../auth.service';
-import {User} from './user.model';
+import { AuthService } from '../auth/auth.service';
+import {User} from '../auth/user.model';
 
 // This injectable argument replaces the need to add the provides inside 
 // component.ts file or in the app.module.ts file
@@ -34,55 +34,7 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private authService: AuthService
-    ) {
-    
-      this.authService.authenticationIdEmmiter
-        .subscribe(
-          (authData: any) =>{
-
-            this.userId = authData.id;
-
-            this.headers = new HttpHeaders({
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer '+authData.token
-            });
-
-            this.authService.getUser(authData.id, this.headers);
-
-          }
-        );
-
-      
-
-  }
-
-  signIn(email: string, password: string){ 
-
-    this.authService.signIn(email, password);
-
-  } 
-
-  // // fn to add a contact into the contacts array
-  signUp(newUser: User) {
-
-    if (!newUser) {
-      return;
-    }
-
-    const headers = new HttpHeaders({'Content-Type': 'application/json'});
-
-    // add to database
-    this.http.post<{ message: string}>(this.url+'/signup',
-      newUser,
-      { headers: headers })
-      .subscribe(
-        (responseData) => {
-          // add new contact to contacts
-          console.log(responseData);
-        }
-      );
-
-  }
+    ) { }
 
   updateUser(familySize: number) {
     

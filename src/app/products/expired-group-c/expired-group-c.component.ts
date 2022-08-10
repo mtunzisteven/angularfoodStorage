@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
+import { User } from 'src/app/auth/user.model';
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
 
@@ -10,46 +12,54 @@ import { ProductService } from '../product.service';
 })
 export class ExpiredGroupCComponent implements OnInit , OnDestroy {
   
-  subscription: Subscription;
+
+  productSub: Subscription;
+  user:User;
 
   products: Product[];
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private authService: AuthService
+    ) { }
 
   ngOnInit(): void {
 
-    // get products and remove those that have expired using 
-    this.products = this.productService.showProductsByExpirationStatus(this.productService.products, 356);
+  
+    // this user observable is special and will stop after the value is retrieved
+    this.authService.user
+    .subscribe(
+      (user) =>{
 
-    this.subscription = this.productService.productListChangedEvent
+        this.user = user; 
+      }
+    );
+
+    // get products from the products service
+    this.products = this.productService.getProducts();
+
+    // remove expired products
+    this.products = this.productService.showProductsByExpirationStatus(this.products, 365);
+
+    // subscribe to changes in the products list found in the products service
+    this.productSub = this.productService.productListChangedEvent
       .subscribe(
         (products: Product[]) =>{
 
           // remove expired products
-          this.products = this.productService.showProductsByExpirationStatus(products, 356);
+          this.products = this.productService.showProductsByExpirationStatus(products, 365);
           
-        }
-      );
+        },
+        // error method
+        (error: any) => {
+            console.log(error);
+        } 
+    );
 
   }
-
+  
   ngOnDestroy(): void{
-
-    this.subscription.unsubscribe();
-
-  }
-
-  expireWithinYear(products: Product[]){
-
-    return products.filter(product => {
-
-      let difference = Date.parse(product.expiryDate.toString())-Date.now();
-
-      let days = (Math.ceil(difference/ (1000 * 3600 * 24)));
-
-      return days > 92 && days <= 356;
-
-    });
+    this.productSub.unsubscribe();
   }
 
   onDeleteProduct(product: Product){

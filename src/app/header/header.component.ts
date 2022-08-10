@@ -1,9 +1,7 @@
-import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../auth.service';
-
-import { User } from '../user/user.model'
-import { UserService } from '../user/user.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -12,20 +10,24 @@ import { UserService } from '../user/user.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  user: User;
   subscription: Subscription;
+  isAuthenticated = false;
 
   constructor(
-    private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: Router
     ) { }
 
   ngOnInit(): void {
-
-    this.subscription = this.authService.userChangedEvent
+    
+    // this user observable is special and will stop after the value is retrieved
+    this.authService.user
       .subscribe(
         (user) =>{
-          this.user = user;
+
+          // when user == null, isAuthenticated = false
+          this.isAuthenticated = !!user; //same as: !user? false:true;
+
         }
       );
   }
@@ -34,8 +36,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onLogout(){
+  onLoggOut(){
     this.authService.logout();
+    this.route.navigate(['../','login']);
   }
 
 }

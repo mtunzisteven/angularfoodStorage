@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { map, Subject } from 'rxjs';
+import { exhaustMap, map, Subject, take } from 'rxjs';
 
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
+import { User } from '../auth/user.model';
 import { Product } from './product.model';
 
 @Injectable({
@@ -17,7 +18,7 @@ export class ProductService {
   selectedproductEvent = new EventEmitter<Product>();
 
   // the product that will be retrieved on login
-  products = [];
+  products: Product[];
 
   // const dates_into_integers = dates_as_strings.map(product => new Date(product.expiryData).getTime()) || no errors
   // const dates_into_integers = dates_as_strings.parse(product => Date.parse(product.expiryData)) || may have errors
@@ -37,59 +38,96 @@ export class ProductService {
     private authService: AuthService
     ) {
     
-      this.authService.authenticationIdEmmiter
-        .subscribe(
-          (authData: any) =>{
+      // this.authService.authenticationIdEmmiter
+      //   .subscribe(
+      //     (authData: any) =>{
 
-            this.productId = authData.id;
+      //       this.productId = authData.id;
 
-            this.headers = new HttpHeaders({
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer '+authData.token
-            });
-          }
-        );
+      //       this.headers = new HttpHeaders({
+      //         'Content-Type': 'application/json',
+      //         'Authorization': 'Bearer '+authData.token
+      //       });
+      //     }
+      //   );
   }
 
-  // // fn to add a product into the products array
-  getProducts() {
+  // fn to add a product into the products array
+  fetchProducts() {
 
-    this.http
-      .get(
-          this.url, 
-          { headers: this.headers }
-        )
-       // Use pipe below to get correct products
-       .pipe(map(fetchedProducts =>{
+    // this take method alllows us to take out only the value we want 
+    // and not remain subscribed to the observable we are takin gthe value from
+    // since we're taking the value we waant and not subscribing, we can't
+    // subscribe to another observable(http.get()) inside this BehaviorSubject
+    // therefore we pipe them together using exhaustMap(). the user observable
+    // is executed and once the value is retrieved, it is replacced by the http observable
+    return this.authService.user.pipe(take(1), exhaustMap(
+      (user: User) => {
 
-          fetchedProducts['products'].map(product => {
-            product['expiryDate'] = new Date(product['expiryDate']).toISOString().replace('-', '/').split('T')[0].replace('-', '/');
-            product['addedDate'] = new Date(product['addedDate']).toISOString().replace('-', '/').split('T')[0].replace('-', '/');
+        this.headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+user.token
           });
 
+        // the http observable is returned and subscribed to thanks to exhaustMap()
+        return this.http
+            .get(
+                this.url, 
+                { headers: this.headers }
+              )
+              // Use pipe below to get correct products
+            .pipe(map(fetchedProducts =>{
 
-          return fetchedProducts['products'];
-        })) 
-      .subscribe(
-        // success method
-        (products: Product[]) => {
+                console.log(fetchedProducts);
+                
+                // Change the date products were added from integer to date yyyy/mm/dd
+                fetchedProducts['products'].map(product => {
 
-          this.products = products;
+                  product['expiryDate'] = new Date(product['expiryDate']).toISOString().replace('-', '/').split('T')[0].replace('-', '/');
+                  product['addedDate'] = new Date(product['addedDate']).toISOString().replace('-', '/').split('T')[0].replace('-', '/');
 
-          this.sortAndSend();
+                });
 
-        },
-        // error method
-        (error: any) => {
-            console.log(error);
-        } 
-    );
+                this.products = fetchedProducts['products'];
 
-    return this.products.slice()
+                // sort products
+                this.sortAndSend();
+
+                // emit changes to product list
+                this.productListChangedEvent.next(this.products.slice());
+
+                // what the observable will return when subscribed to
+                return this.products.slice();
+
+            })) 
+      }
+    ))
 
   }
 
-    // fn to add a product into the products array
+  // get the products list that was fetched from the database
+  getProducts(){
+
+    // fetch the products from the db if they weren't already
+    if(!this.products){
+      this.fetchProducts()
+      .subscribe((products) =>{
+
+        return products;
+
+      });
+    }
+
+    // sort products
+    this.sortAndSend();
+
+
+    // return the list of products requested
+    return this.products.slice();
+
+  }
+
+  // fn to add a product into the products array
   addProduct(newProduct: Product) {
 
     if (!newProduct) {
@@ -109,11 +147,15 @@ export class ProductService {
           // add new product to products
           this.products.push(responseData.product);
           this.sortAndSend();
+
+          // emitting this updated products list
+          this.productListChangedEvent.next(this.products.slice());
         }
       );
 
   }
 
+  // fn to update product from the db
   updateProduct(newProduct: Product, originalProduct: Product) {
     
     if (!originalProduct || !newProduct) {
@@ -129,15 +171,27 @@ export class ProductService {
     // set the id of the new product to the id of the old product
     newProduct.id = originalProduct.id;
 
+    // convert dates to timestamps: integer
+    // newProduct.addedDate = new Date(newProduct.addedDate).getTime();
+    newProduct.expiryDate = new Date(newProduct.expiryDate).getTime();
+
+    console.log(newProduct);
+    console.log(new Date(newProduct.expiryDate).getTime());
+        
     // update database
-    this.http.put(this.url + originalProduct.id,
-      newProduct, { headers: this.headers })
+    this.http.put(
+        this.url + originalProduct.id,
+        newProduct, 
+        { headers: this.headers }
+      )
       .subscribe(
         (response: Response) => {
           this.products[pos] = newProduct;
           this.sortAndSend();
-        }
-      );
+
+          // emitting this updated products list
+          this.productListChangedEvent.next(this.products.slice());
+        });
   }
 
   // Method used to delete a product from the products array and in the db
@@ -162,6 +216,9 @@ export class ProductService {
         (response: Response) => {
           this.products.splice(pos, 1);
           this.sortAndSend();
+
+          // emitting this updated products list
+          this.productListChangedEvent.next(this.products.slice());
         }
       );
   }
@@ -204,21 +261,25 @@ export class ProductService {
   // display products by expiration status
   showProductsByExpirationStatus(products: Product[], max: number){
 
+    // filter products based on their expiry date in days remaining
     return products.filter(product => {
 
+      // time between expiry date and today
       let difference = Date.parse(product.expiryDate.toString())-Date.now();
 
+      // convert date to days
       let days = (Math.ceil(difference/ (1000 * 3600 * 24)));
 
+      // return all products whose days left before expiry is according to logic below
       switch(max){
         case 0: // expired
           return days <= 0;
         case 31: // expire within 1 month
           return days > 0 && days <= 30;
-        case 92: // expire within 3 months
-          return days > 30 && days <= 92;
-        case 356: //expire within year
-          return days > 92 && days <= 365; 
+        case 93: // expire within 3 months
+          return days > 31 && days <= 92;
+        case 365: //expire within year
+          return days > 93 && days <= 365; 
         default:
           return days > 0
       }

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/auth.service';
-import { User } from '../user.model';
+import { AuthService } from 'src/app/auth/auth.service';
+import { User } from '../../auth/user.model';
 import { UserService } from '../user.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class UserEditComponent implements OnInit {
   isEdit: boolean = true;
 
   // initial value to avert error name undefined
-  user = new User('', '', '', '', 1);
+  user = new User('', '', '', 1, '', new Date());
 
   id: string = '';
 
@@ -96,11 +96,12 @@ export class UserEditComponent implements OnInit {
         this.id,
         userForm.name,
         userForm.email,
-        userForm.password,
         userForm.familySize,
+        '',
+        new Date()
         );
 
-      this.userService.signUp(newUser);
+      this.authService.signUp(newUser);
     }
 
     this.router.navigate(['../../'], {relativeTo: this.route});

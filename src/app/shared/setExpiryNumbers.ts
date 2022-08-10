@@ -1,6 +1,7 @@
 import { Product } from "../products/product.model";
-import { User } from "../user/user.model";
+import { User } from "../auth/user.model";
 
+// sets and returns expiry numbers in days for each expiry <period> within group
 export function  setExpiryNumbers(products: Product[], user: User){
 
     const expiryNumbers = {};
@@ -28,14 +29,14 @@ export function  setExpiryNumbers(products: Product[], user: User){
     let  expireInThreeMonths = activeProducts.filter(product =>{
       let difference = Date.parse(product.expiryDate.toString())-Date.parse(product.addedDate.toString());
 
-      return (Math.ceil(difference/ (1000 * 3600 * 24))) > 30 && (Math.ceil(difference/ (1000 * 3600 * 24))) < 93;
+      return (Math.ceil(difference/ (1000 * 3600 * 24))) < 93;
     })
 
     // filter for items expiring in 1 year: 365 days or less
     let  expireInYear = activeProducts.filter(product =>{
       let difference = Date.parse(product.expiryDate.toString())-Date.parse(product.addedDate.toString());
 
-      return (Math.ceil(difference/ (1000 * 3600 * 24))) > 92 && (Math.ceil(difference/ (1000 * 3600 * 24))) <= 365;
+      return (Math.ceil(difference/ (1000 * 3600 * 24))) <= 365;
     })
 
     // initialize servingsLeft
@@ -53,7 +54,7 @@ export function  setExpiryNumbers(products: Product[], user: User){
 
       // divide the numbe rof servings remaining by 3 meals a day
       // user is nested in user obj
-      expiryNumbers['servingsLeft'] = Math.round((expiryNumbers['servingsLeft']/3)/user['user'].familySize);
+      expiryNumbers['servingsLeft'] = Math.round((expiryNumbers['servingsLeft']/3)/user.familySize);
 
     }
 
@@ -65,4 +66,4 @@ export function  setExpiryNumbers(products: Product[], user: User){
     expiryNumbers['year'] =expireInYear.length;
 
     return expiryNumbers;
-  }
+}

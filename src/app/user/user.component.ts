@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 import { ProductService } from '../products/product.service';
-import { User } from './user.model';
+import { User } from '../auth/user.model';
 import { UserService } from './user.service';
 
 @Component({

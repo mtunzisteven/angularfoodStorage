@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { exhaustMap, map, Subscription, take } from 'rxjs';
 
-import { AuthService } from 'src/app/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { User } from 'src/app/auth/user.model';
 import { setExpiryNumbers } from 'src/app/shared/setExpiryNumbers';
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
@@ -13,11 +14,14 @@ import { ProductService } from '../product.service';
 })
 export class ProductListComponent implements OnInit, OnDestroy {
 
-  subscription: Subscription;
-
   products: Product[];
 
   servingsLeft: number;
+
+  productSub: Subscription;
+  subscription: Subscription;
+
+  user: User;
 
   constructor(
     private productService: ProductService,
@@ -26,43 +30,57 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    // get user from user object
-    let user = this.authService.user;
+   
+    // this user observable is special and will stop after the value is retrieved
+    this.authService.user
+    .subscribe(
+      (user) =>{
 
-    console.log(user);
+        this.user = user; 
+      }
+    );
 
-    // get products and remove those that have expired using 
-    this.products = this.productService.showProductsByExpirationStatus(this.productService.products, 100);
+    // fetch products from the products service
+    this.subscription = this.productService.fetchProducts()
+    .subscribe(
+      // success method
+      (products: Product[]) => {
 
-    this.subscription = this.productService.productListChangedEvent
+        // remove expired products
+        this.products = this.productService.showProductsByExpirationStatus(products, null);
+
+        // set expiry numbers to use for expiry information display
+        let expiryNumbers = setExpiryNumbers(this.products, this.user);
+
+        this.servingsLeft = expiryNumbers['servingsLeft'];
+
+      },
+      // error method
+      (error: any) => {
+          console.log(error);
+      } 
+    );
+    
+    // subscribe to changes in the products list found in the products service
+    this.productSub = this.productService.productListChangedEvent
       .subscribe(
         (products: Product[]) =>{
 
           // remove expired products
-          this.products = this.productService.showProductsByExpirationStatus(products, 100);
+          this.products = this.productService.showProductsByExpirationStatus(products, null);
 
-          let expiryNumbers = setExpiryNumbers(this.products, user);
+          let expiryNumbers = setExpiryNumbers(this.products, this.user);
 
           this.servingsLeft = expiryNumbers['servingsLeft'];
-
-          console.log('==================Expiry Numbers====================');
-          console.log(expiryNumbers);
           
         }
-      );
-
-      let expiryNumbers = setExpiryNumbers(this.products, user);
-
-      this.servingsLeft = expiryNumbers['servingsLeft'];
-
-      console.log('==================Expiry Numbers====================');
-      console.log(expiryNumbers);
+    );
 
   }
 
   ngOnDestroy(): void{
-
     this.subscription.unsubscribe();
+    this.productSub.unsubscribe();
 
   }
 

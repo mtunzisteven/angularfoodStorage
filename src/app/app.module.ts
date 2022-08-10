@@ -14,13 +14,14 @@ import { ProductEditComponent } from './products/product-edit/product-edit.compo
 import { HeaderComponent } from './header/header.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
-import { SignInComponent } from './user/sign-in/sign-in.component';
 import { LoggingInterceptorService } from './logging-interceptor.service';
 import { ExpiredGroupAComponent } from './products/expired-group-a/expired-group-a.component';
 import { ExpiredGroupBComponent } from './products/expired-group-b/expired-group-b.component';
 import { ExpiredGroupCComponent } from './products/expired-group-c/expired-group-c.component';
 import { RemovedProductsComponent } from './products/removed-products/removed-products.component';
 import { ExpiredProductsComponent } from './products/expired-products/expired-products.component';
+import { AuthComponent } from './auth/auth.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinners/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -34,12 +35,13 @@ import { ExpiredProductsComponent } from './products/expired-products/expired-pr
     HeaderComponent,
     DropdownDirective,
     UserDetailComponent,
-    SignInComponent,
     ExpiredGroupAComponent,
     ExpiredGroupBComponent,
     ExpiredGroupCComponent,
     RemovedProductsComponent,
-    ExpiredProductsComponent
+    ExpiredProductsComponent,
+    AuthComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,

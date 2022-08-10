@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthService } from './auth.service';
-import { User } from './user/user.model';
+import { AuthService } from './auth/auth.service';
+import { User } from './auth/user.model';
 import { UserService } from './user/user.service';
 
 @Component({

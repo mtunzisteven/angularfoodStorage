@@ -1,0 +1,194 @@
+<div class="col-xs-12 " *ngIf="!isLoading">
+
+    <form *ngIf="login" class="form-signin" id="user-signin" (ngSubmit)="onSubmit(signInform)" #signInform="ngForm">
+        
+        <div 
+            class="alert alert-info mb-2"
+            *ngIf="message"
+            >{{message}}
+        </div>
+        <h1 class="h3 mb-3 font-weight-normal align-items-center text-center">Sign into your account</h1>
+
+        <div class="row">
+            <div class="col-sm-12 form-group">
+            <input
+                type="email"
+                id="email"
+                class="form-control"
+                name="email"
+                [ngModel]=""
+                size="120"
+                max="255"
+                #email="ngModel"
+                placeholder="Enter email"
+                required
+                autofocus
+                >
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-sm-12 form-group">
+            <input
+                type="password"
+                id="password"
+                class="form-control"              
+                name="password"
+                [ngModel]=""
+                size="150"
+                ngModel
+                #password="ngModel"
+                placeholder="Enter Password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                required
+                >
+            </div>
+        </div>
+        <div 
+            class="alert alert-danger"
+            *ngIf="!password.valid && password.touched"
+            >Please make sure your password has a minimum of 8 characters, has atleast 1 number with atleast 1 uppercase and atleast 1 lowercase.
+        </div>
+
+        <div 
+            class="alert alert-danger"
+            *ngIf="!password.valid || !email.valid"
+            >Email  and password input fields are required.
+        </div>
+        <div class="btn-toolbar">
+            <button 
+                class="btn btn-lg btn-prime btn-block" 
+                type="submit"
+                [disabled]="!signInform.valid" 
+                >Sign in
+            </button>
+            <a 
+                class="btn btn-lg btn-dnger btn-block" 
+                type="button" 
+                routerLink="/signUp">Sign-up
+            </a>
+        </div>
+    
+    </form>
+
+
+    <form *ngIf="!login" class="form-signup" id="document-edit" (ngSubmit)="onSubmit(newUserform)" #newUserform="ngForm">
+        
+        <div 
+            class="alert alert-info mb-2"
+            *ngIf="message"
+            >{{message}}
+        </div>
+
+        <h1 class="h3 mb-3 font-weight-normal">Sign up for an account</h1>
+
+        <div class="row">
+            <div class="col-sm-12 form-group">
+            <input
+                type="text"
+                id="name"
+                class="form-control"
+                name="name"
+                [ngModel]="user.name"
+                ngModel
+                #name="ngModel"
+                placeholder="Enter your name"
+                size="120"
+                max="120"
+                required
+                autofocus
+                >
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-sm-12 form-group">
+            <input
+                type="email"
+                id="email"
+                class="form-control"
+                name="email"
+                [ngModel]="user.email"
+                placeholder="Enter email"
+                size="120"
+                max="255"
+                #email="ngModel"
+                required
+                >
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-sm-12 form-group">
+            <input
+                type="password"
+                id="password"
+                class="form-control"              
+                name="password"
+                [ngModel]="user.password"
+                placeholder="Enter password"
+                size="150"
+                ngModel
+                #password="ngModel"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                required
+                >
+            </div>
+        </div>
+        <div 
+            class="alert alert-danger"
+            *ngIf="!password.valid && password.touched"
+            >Please make sure your password has a minimum of 8 characters, has atleast 1 number with atleast 1 uppercase and atleast 1 lowercase.
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 form-group">
+                <label for="familySize" style="text-align: left;">Family Size:</label>
+                <input
+                type="number"
+                id="familySize"
+                class="form-control"
+                name="familySize"
+                [ngModel]="user.familySize"
+                ngModel
+                #familySize="ngModel"
+                size="120"
+                min="1"
+                required
+                >
+            </div>
+        </div>
+
+        <div 
+            class="alert alert-danger"
+            *ngIf="familySize.touched && !familySize.valid"
+            >The size of your family needs to be the total number of people in your family.
+        </div>
+
+        <div 
+            class="alert alert-danger"
+            *ngIf="!name.valid || !email.valid"
+            >Name, email input fields are required fields.
+        </div>
+
+        <div class="btn-toolbar">
+            <button 
+                class="btn btn-lg btn-prime btn-block" 
+                type="submit"
+                [disabled]="!newUserform.valid" 
+                >Sign-up
+            </button>
+            <a 
+                class="btn btn-lg btn-dnger btn-block" 
+                type="button" 
+                routerLink="/login">Login
+            </a>
+        </div>
+    
+    </form>
+</div>
+<div class="col-xs-12 spinner" *ngIf="isLoading">
+
+    <app-loading-spinner></app-loading-spinner>
+
+</div>

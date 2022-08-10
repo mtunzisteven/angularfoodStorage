@@ -100,7 +100,7 @@ export class ProductEditComponent implements OnInit {
       );
 
     if(this.editMode){
-      this.productService.updateProduct(this.originalproduct, newProduct);
+      this.productService.updateProduct(newProduct, this.originalproduct);
     }else{
       this.productService.addProduct(newProduct);
     }
@@ -110,7 +110,7 @@ export class ProductEditComponent implements OnInit {
 
   onCancel(){
 
-    this.router.navigate(['../../']);
+    this.router.navigate(['../','list'], {relativeTo: this.route});
     
   }
 
