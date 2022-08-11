@@ -85,10 +85,9 @@ export class AuthComponent implements OnInit{
         (authData: any) => {
 
           this.message = authData.message;
-          this.status = authData.status;
 
           // status of auth data true if it is successful
-          if(this.status){
+          if(authData){
 
             // reset form values without emptying them(form.reset())
             userForm.email = '';

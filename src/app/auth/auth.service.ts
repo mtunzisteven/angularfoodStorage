@@ -64,7 +64,7 @@ export class AuthService{
       password: password
     }
 
-    return this.http.post<{token: string, user: User, status: boolean}>(
+    return this.http.post<{token: string, user: User, _tokenExpirationDate: Date}>(
           this.url+'/login', 
           postData,
           { headers: this.headers })
@@ -75,7 +75,7 @@ export class AuthService{
               return resData;
             }),
             catchError(this.handleError),
-            tap(resData => {this.handleAuthentication(resData.user, resData.token)})
+            tap(resData => {this.handleAuthentication(resData.user, resData.token, resData._tokenExpirationDate)})
           ); // use private error handling function
   }
 
@@ -139,8 +139,10 @@ export class AuthService{
 
       this.user.next(loadedUser);
 
-      // set auto logout timer when user auto logs in, but recalculate it by minusing
-      this.autologout((new Date(user._tokenExpirationDate).getTime() - new Date().getTime())*1000)
+    // set auto logout timer when user auto logs in, but recalculate it by minusing
+    // current time from token expiry time that was set in the API part of application
+    this.autologout(new Date(user._tokenExpirationDate).getTime() - new Date().getTime());
+    
     }
 
   }
@@ -158,12 +160,10 @@ export class AuthService{
 
   }
 
-  private handleAuthentication(userdata, token){
-
-    // create expiration time for loggin
-    const expirationDate = new Date(
-      new Date().getTime() + (59 * 60 * 1000)*1000 // now plus 1 hour minus 1 minute(59 min instead of 60)
-    );
+  private handleAuthentication(userdata, token, _tokenExpirationDate){
+    
+    // get expiration time for loggin
+    const expirationDate = new Date(_tokenExpirationDate);
 
     const user = new User(
       userdata.id,
@@ -177,8 +177,9 @@ export class AuthService{
     // emit the user auth data
     this.user.next(user);
 
-    // set timer for auto log out
-    this.autologout(expirationDate.getDate()*1000)
+    // set auto logout timer when user auto logs in, but recalculate it by minusing
+    // current time from token expiry time that was set in the API part of application
+    this.autologout(new Date(expirationDate).getTime() - new Date().getTime());
 
     // to persist the user auth past page reloads, we store the user in 
     // browser local storage in a string format and will retieve it & convert it back to an obj

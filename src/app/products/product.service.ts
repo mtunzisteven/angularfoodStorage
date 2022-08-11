@@ -20,16 +20,6 @@ export class ProductService {
   // the product that will be retrieved on login
   products: Product[];
 
-  // const dates_into_integers = dates_as_strings.map(product => new Date(product.expiryData).getTime()) || no errors
-  // const dates_into_integers = dates_as_strings.parse(product => Date.parse(product.expiryData)) || may have errors
-
-  // const date_into_strings = dates_as_strings.map(date => new Date(product.expiryData));
-
-  productId: string;
-
-  // Maximum product id variable
-  maxproductId: number = 0;
-
   url = "http://localhost:3000/products/";
   headers:HttpHeaders;
 
@@ -143,9 +133,6 @@ export class ProductService {
     // convert dates to timestamps: integer
     // newProduct.addedDate = new Date(newProduct.addedDate).getTime();
     newProduct.expiryDate = new Date(newProduct.expiryDate).getTime();
-
-    console.log(newProduct);
-    console.log(new Date(newProduct.expiryDate).getTime());
         
     // update database
     this.http.put(
