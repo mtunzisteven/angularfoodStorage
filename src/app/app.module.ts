@@ -23,6 +23,7 @@ import { ExpiredProductsComponent } from './products/expired-products/expired-pr
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinners/loading-spinner.component';
 import { ProductsTableComponent } from './shared/products-table/products-table.component';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -56,11 +57,17 @@ import { ProductsTableComponent } from './shared/products-table/products-table.c
     DropdownDirective
   ],
   providers: [ 
+    { // provide the AuthInterceptorService in a special way as follows | order important: auth first
+      provide: HTTP_INTERCEPTORS, // token by which this injection can be identified by Angular to alert it this it is an http interceptor
+      useClass:AuthInterceptorService, // The actual interceptor service we're injecting 
+      multi: true // inform Angular not to replace other http interceptors with this one, but use them together
+    },
     { // provide the LoggingInterceptorService in a special way as follows | order important: auth first
       provide: HTTP_INTERCEPTORS, // token by which this injection can be identified by Angular to alert it this it is an http interceptor
       useClass:LoggingInterceptorService, // The actual interceptor service we're injecting 
       multi: true // inform Angular not to replace other http interceptors with this one, but use them together
     }
+
   ],
   bootstrap: [AppComponent]
 })

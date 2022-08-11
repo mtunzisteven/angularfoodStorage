@@ -36,72 +36,41 @@ export class ProductService {
   constructor(
     private http: HttpClient,
     private authService: AuthService
-    ) {
-    
-      // this.authService.authenticationIdEmmiter
-      //   .subscribe(
-      //     (authData: any) =>{
-
-      //       this.productId = authData.id;
-
-      //       this.headers = new HttpHeaders({
-      //         'Content-Type': 'application/json',
-      //         'Authorization': 'Bearer '+authData.token
-      //       });
-      //     }
-      //   );
-  }
+    ) {}
 
   // fn to add a product into the products array
   fetchProducts() {
 
-    // this take method alllows us to take out only the value we want 
-    // and not remain subscribed to the observable we are takin gthe value from
-    // since we're taking the value we waant and not subscribing, we can't
-    // subscribe to another observable(http.get()) inside this BehaviorSubject
-    // therefore we pipe them together using exhaustMap(). the user observable
-    // is executed and once the value is retrieved, it is replacced by the http observable
-    return this.authService.user.pipe(take(1), exhaustMap(
-      (user: User) => {
+    // the http observable is returned and subscribed to where this fn is called
+    return this.http
+        .get(
+            this.url, 
+            { headers: this.headers }
+          )
+          // Use pipe below to get correct products
+        .pipe(
+          map(fetchedProducts =>{
+            
+            // Change the date products were added from integer to date yyyy/mm/dd
+            fetchedProducts['products'].map(product => {
 
-        this.headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+user.token
-          });
+              product['expiryDate'] = new Date(product['expiryDate']).toISOString().replace('-', '/').split('T')[0].replace('-', '/');
+              product['addedDate'] = new Date(product['addedDate']).toISOString().replace('-', '/').split('T')[0].replace('-', '/');
 
-        // the http observable is returned and subscribed to thanks to exhaustMap()
-        return this.http
-            .get(
-                this.url, 
-                { headers: this.headers }
-              )
-              // Use pipe below to get correct products
-            .pipe(map(fetchedProducts =>{
+            });
 
-                console.log(fetchedProducts);
-                
-                // Change the date products were added from integer to date yyyy/mm/dd
-                fetchedProducts['products'].map(product => {
+            this.products = fetchedProducts['products'];
 
-                  product['expiryDate'] = new Date(product['expiryDate']).toISOString().replace('-', '/').split('T')[0].replace('-', '/');
-                  product['addedDate'] = new Date(product['addedDate']).toISOString().replace('-', '/').split('T')[0].replace('-', '/');
+            // sort products
+            this.sortAndSend();
 
-                });
+            // emit changes to product list
+            this.productListChangedEvent.next(this.products.slice());
 
-                this.products = fetchedProducts['products'];
+            // what the observable will return when subscribed to
+            return this.products.slice();
 
-                // sort products
-                this.sortAndSend();
-
-                // emit changes to product list
-                this.productListChangedEvent.next(this.products.slice());
-
-                // what the observable will return when subscribed to
-                return this.products.slice();
-
-            })) 
-      }
-    ))
+        })) 
 
   }
 
