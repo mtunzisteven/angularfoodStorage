@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user.model';
@@ -15,19 +16,23 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
   products: Product[];
   daysLeft = [];
 
-  // specific to eacg product list group
+  // specific to each product list group
   @Input() productListNumber = null
 
   servingsLeft: number;
   isLoading = true;
   productSub: Subscription;
-  subscription: Subscription;
 
   user: User;
 
+  // the search term used in product list
+  @Input() term = '';
+
   constructor(
     private productService: ProductService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
@@ -43,42 +48,32 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
     );
 
     // fetch products from the products service
-    this.subscription = this.productService.fetchProducts()
-    .subscribe(
-      // success method
-      (products: Product[]) => {
+    this.products = this.productService.getProducts()
 
-        // remove expired products
-        this.products = this.productService.showProductsByExpirationStatus(products, this.productListNumber);
+    // remove expired products
+    this.products = this.productService.showProductsByExpirationStatus(this.products, this.productListNumber);
 
-        // set expiry numbers to use for expiry information display
-        let expiryNumbers = setExpiryNumbers(this.products, this.user);
+    // set expiry numbers to use for expiry information display
+    let expiryNumbers = setExpiryNumbers(this.products, this.user);
 
-        this.servingsLeft = expiryNumbers['servingsLeft'];
+    this.servingsLeft = expiryNumbers['servingsLeft'];
 
-        // 
-        this.products.forEach(product => {
+    // 
+    this.products.forEach(product => {
 
-            // time between expiry date and today
-            let difference = Date.parse(product.expiryDate.toString())-Date.now();
+        // time between expiry date and today
+        let difference = Date.parse(product.expiryDate.toString())-Date.now();
 
-            difference = Math.ceil(difference/ (1000 * 3600 * 24));
+        difference = Math.ceil(difference/ (1000 * 3600 * 24));
 
-            // convert date to days
-            this.daysLeft.push(difference);
+        // convert date to days
+        this.daysLeft.push(difference);
 
-        });
+    });
 
-        this.isLoading = false;
+    this.isLoading = false;
 
-        console.log(this.daysLeft);
-
-      },
-      // error method
-      (error: any) => {
-          console.log(error);
-      } 
-    );
+    console.log(this.daysLeft);
     
     // subscribe to changes in the products list found in the products service
     this.productSub = this.productService.productListChangedEvent
@@ -98,7 +93,6 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void{
-    this.subscription.unsubscribe();
     this.productSub.unsubscribe();
 
   }
@@ -106,7 +100,8 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
   onDeleteProduct(product: Product){
 
     this.productService.deleteProduct(product);
-    
+    this.router.navigate(['../','list'], {relativeTo: this.route});
+
   }
 
 }

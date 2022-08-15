@@ -3,24 +3,32 @@
 
     <!-- Main component for a primary marketing message or call to action -->
     <div class="jumbotron" *ngIf="user==undefined">
-        <h1>The Food Storage App</h1>
-        <p>This application helps you manage your food storage and make sure you 
-            always stay on top of your preparedness. The first step is to sign up to an account, log in and you'll be ready to 
-            load the number of people you manage the storage for, and the food items ion your storage.</p>
-        <p>
-            <a 
-                role="button"
-                class="btn btn-primary btn-md"
-                routerLink="/signUp"
-            >Signup
-            </a>
-            <a 
-                role="button"
-                class="btn btn-outline btn-md"
-                routerLink="/login"
-            >Login
-            </a>
-        </p>
+        <div class="col-md-6">
+            <h1>The Food Storage App</h1>
+            <p>This application helps you manage your food storage and make sure you 
+                always stay on top of your preparedness. The first step is to sign up to an account, log in and you'll be ready to 
+                load the number of people you manage the storage for, and the food items ion your storage.
+            </p>
+            <p>
+                <a 
+                    role="button"
+                    class="btn btn-primary btn-md"
+                    routerLink="/signUp"
+                >Signup
+                </a>
+                <a 
+                    role="button"
+                    class="btn btn-outline btn-md"
+                    routerLink="/login"
+                >Login
+                </a>
+            </p>
+        </div>
+        <img 
+            class="col-md-6"
+            style="max-width: 400px; float: right;" 
+            src="assets/images/shopping-rafiki.png" alt="" 
+        />
     </div>
 
     <div class="jumbotron home-content" *ngIf="user">
@@ -90,4 +98,5 @@
     </div>
 
 </div> 
+
 

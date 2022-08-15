@@ -20,6 +20,8 @@ export class ProductEditComponent implements OnInit {
   // The variable that will manage edit mode
   editMode: boolean = false;
 
+  newProductMessage = '';
+
   id: string;
 
   constructor(
@@ -101,10 +103,13 @@ export class ProductEditComponent implements OnInit {
 
     if(this.editMode){
       this.productService.updateProduct(newProduct, this.originalproduct);
+      this.router.navigate(['../','list'], {relativeTo: this.route});
+
     }else{
       this.productService.addProduct(newProduct);
+      this.newProductMessage = 'Product added!'
+      form.reset();
     }
-    this.router.navigate(['../','list'], {relativeTo: this.route});
 
   }
 

@@ -13,7 +13,7 @@
       </thead>
       <tbody>
           <tr
-              *ngFor=" let product of products; let i = index"
+              *ngFor=" let product of products | FilterPipe : term; let i = index "
               style="font-weight: 600;"
               [ngStyle]="{color:daysLeft[i] <= 365 ? '#E63946': 'green'}"
           >

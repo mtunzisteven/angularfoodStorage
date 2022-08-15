@@ -24,6 +24,7 @@ import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinners/loading-spinner.component';
 import { ProductsTableComponent } from './shared/products-table/products-table.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     ExpiredProductsComponent,
     AuthComponent,
     LoadingSpinnerComponent,
-    ProductsTableComponent
+    ProductsTableComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

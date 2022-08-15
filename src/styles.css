@@ -226,7 +226,7 @@ input.ng-invalid {
   margin: 0 auto;
 }
 
-.form-signin,.form-signup, .form-new-product{
+.form-signin,.form-signup, .form-new-product{ 
   width: 100%;
   max-width: 330px;
   padding: 15px;
