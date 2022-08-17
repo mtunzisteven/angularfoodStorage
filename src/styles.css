@@ -233,6 +233,10 @@ input.ng-invalid {
   margin: 50px auto auto auto;
 }
 
+.form-new-product{
+  margin: 5px auto auto auto;
+}
+
 .form-signin .form-control, 
 .form-signup .form-control, 
 .form-new-product .form-control{
