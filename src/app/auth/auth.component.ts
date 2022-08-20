@@ -110,14 +110,13 @@ export class AuthComponent implements OnInit{
 
     }else{
 
-      let newUser = new User(
-        this.id,
-        userForm.name,
-        userForm.email,
-        userForm.familySize,
-        '',
-        new Date()
-        );
+      const newUser = {
+        name:userForm.name,
+        email:userForm.email,
+        password:userForm.password,
+        familySize:userForm.familySize,
+        dateAdded:new Date()
+      };
 
         this.subscription = this.authService.signUp(newUser)
           .subscribe(

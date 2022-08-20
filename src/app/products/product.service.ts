@@ -20,7 +20,7 @@ export class ProductService {
   // the product that will be retrieved on login
   products: Product[];
 
-  url = "http://localhost:3000/products/";
+  url = "https://food-storage-api.herokuapp.com/products/";
   headers:HttpHeaders;
 
   constructor(

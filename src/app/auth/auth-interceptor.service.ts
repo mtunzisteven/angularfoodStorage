@@ -1,10 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { EventEmitter, Injectable } from "@angular/core";
-import { BehaviorSubject, map, Observable, Subject, throwError } from "rxjs";
-import { catchError, tap, take, exhaustMap } from "rxjs/operators";
+import { HttpClient, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { take, exhaustMap } from "rxjs/operators";
 import { AuthService } from "./auth.service";
-
-import { User } from "./user.model";
 
 // This injectable lacks argument and will be added in the providers inside 
 // the app.module.ts file so that Angular understands what it is: interceptor

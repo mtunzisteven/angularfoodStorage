@@ -28,7 +28,7 @@ export class UserService {
   // Maximum user id variable
   maxUserId: number = 0;
 
-  url = "http://localhost:3000/user/";
+  url = "https://food-storage-api.herokuapp.com/user/";
   headers:HttpHeaders;
 
   constructor(

@@ -16,7 +16,7 @@ export class AuthService{
   // a better way to emit user changes
   userChangedEvent = new Subject<User>();
 
-  url = "http://localhost:3000/user/";
+  url = "https://food-storage-api.herokuapp.com/user/";
   headers = new HttpHeaders({'Content-Type': 'application/json'});
 
   token: string;
@@ -39,7 +39,12 @@ export class AuthService{
     ) { }
 
   // fn to add new user to db
-  signUp(newUser: User) {
+  signUp(newUser) {
+
+    console.log('Sign up:');
+
+    console.log(newUser);
+
 
     if (!newUser) {
       return;
