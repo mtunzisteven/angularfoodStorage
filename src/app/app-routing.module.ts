@@ -17,6 +17,7 @@ import { AuthComponent } from './auth/auth.component';
 // creating routes for the entire application
 const appRoutes: Routes = [
   {path:'', redirectTo: 'home', pathMatch: 'full'}, 
+  {path:'/', redirectTo: 'home', pathMatch: 'full'}, 
   {path:'home', component: HomeComponent},
   {path: 'auth', redirectTo: 'login', pathMatch: 'full'},
   {path:'login', component: AuthComponent},
